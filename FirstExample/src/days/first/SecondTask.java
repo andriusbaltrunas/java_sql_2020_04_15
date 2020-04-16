@@ -8,7 +8,6 @@ import java.util.Scanner;
 public class SecondTask {
 	public static void main(String[] args) {
 
-
 		System.out.println("Iveskite norima polindroma, o mes patikrinsim");
 		Scanner scanner = new Scanner(System.in);
 
