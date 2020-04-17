@@ -1,7 +1,6 @@
 package days.second;
 
 import java.text.DecimalFormat;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -19,7 +18,8 @@ public class FirstTask
 		{
 			System.out.println("1. Staciojo trikampio platas\n2. Staciakampio plotas\n3. Kvadratos plotas\n4. Apskirtimo plotas\n5. Baigti");
 			selection = (int) NumberUtils.getCorrectNumber(scanner);
-			switch(selection) {
+			switch(selection)
+			{
 				case 1:
 					firstTask.countTriangle(scanner);
 					break;
@@ -41,7 +41,8 @@ public class FirstTask
 		}
 	}
 
-	private void countTriangle(Scanner scanner){
+	private void countTriangle(Scanner scanner)
+	{
 		System.out.println("Iveskite pirma statini:");
 		int a = (int) NumberUtils.getCorrectNumber(scanner);
 		System.out.println("Iveskite antra statini:");
@@ -50,7 +51,8 @@ public class FirstTask
 		System.out.println("Trikampio plotas yra " + a * b / 2);
 	}
 
-	private void countCircle(Scanner scanner) {
+	private void countCircle(Scanner scanner)
+	{
 		System.out.println("Iveskite spinduli");
 		double r = NumberUtils.getCorrectNumber(scanner);
 		DecimalFormat df = new DecimalFormat("0.00");
@@ -58,3 +60,4 @@ public class FirstTask
 		System.out.println("Apskirtimo plotas " + df.format(Math.pow(r, 2) * pi));
 	}
 }
+

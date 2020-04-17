@@ -17,4 +17,13 @@ public class NumberUtils {
 			}
 		}
 	}
+
+	public static double getCorrectNumber(Scanner scanner, String number) {
+		try {
+			return Integer.parseInt(number);
+		}catch(NumberFormatException e){
+			System.out.println("Ivedete bloga skaiciu teks pakartoti");
+			return getCorrectNumber(scanner);
+		}
+	}
 }
