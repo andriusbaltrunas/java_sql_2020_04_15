@@ -10,8 +10,7 @@ public class NumberUtils {
 	public static double getCorrectNumber(Scanner scanner) {
 		while(true) {
 			try {
-				double number = scanner.nextDouble();
-				return number;
+				return scanner.nextDouble();
 			} catch(InputMismatchException ex) {
 				System.out.println("Ivedete bloga skaiciu pakartokite");
 				scanner.nextLine();
