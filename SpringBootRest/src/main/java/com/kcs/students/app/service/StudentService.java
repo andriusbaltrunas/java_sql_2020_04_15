@@ -20,6 +20,91 @@ public class StudentService {
 	@Autowired
 	private StudentRepository studentRepository;
 
+	public Student updateStudent(Student student) {
+		PreparedStatement preparedStatement = studentRepository.getPreparedStatement("update students set name=?, surname=?, email=?, phone=? where id=?");
+		if(preparedStatement == null) {
+			return null;
+		}
+
+		try {
+			preparedStatement.setString(1, student.getName());
+			preparedStatement.setString(2, student.getSurname());
+			preparedStatement.setString(3, student.getEmail());
+			preparedStatement.setString(4, student.getPhone());
+			preparedStatement.setInt(5, student.getId());
+			preparedStatement.execute();
+
+			return student;
+		}catch(SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return null;
+	}
+
+	public void deleteStudent(int id) {
+		PreparedStatement statement = studentRepository.getPreparedStatement("delete from students where id = ?");
+		if(statement == null) {
+			return;
+		}
+
+		try {
+			statement.setInt(1, id);
+			statement.execute();
+		} catch(SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public Student createStudent(Student student) {
+		PreparedStatement preparedStatement = studentRepository.getPreparedStatement("insert into students(name,surname,phone,email)values(?,?,?,?)");
+		if(preparedStatement == null) {
+			return null;
+		}
+
+		try {
+			preparedStatement.setString(1, student.getName());
+			preparedStatement.setString(2, student.getSurname());
+			preparedStatement.setString(3, student.getPhone());
+			preparedStatement.setString(4, student.getEmail());
+
+			preparedStatement.execute();
+			return getStudents().stream()
+					.filter(s -> s.equals(student))
+					.findFirst()
+					.orElse(null);
+
+		} catch(SQLException e) {
+			System.out.println(e.getMessage());
+		}
+
+		return null;
+	}
+
+	public Student getStudent(int id) {
+		PreparedStatement preparedStatement = studentRepository.getPreparedStatement("SELECT * FROM students where id = ?");
+		if(preparedStatement == null) {
+			return null;
+		}
+
+		try {
+			preparedStatement.setInt(1, id);
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			if(resultSet.next()) {
+				return new Student(resultSet.getInt("id"),
+								   resultSet.getString("name"),
+								   resultSet.getString("surname"),
+								   resultSet.getString("email"),
+								   resultSet.getString("phone"));
+			}
+
+		} catch(SQLException e) {
+			System.out.println(e.getMessage());
+		}
+
+		return null;
+	}
+
 	public List<Student> getStudents() {
 		List<Student> students = new ArrayList<>();
 
